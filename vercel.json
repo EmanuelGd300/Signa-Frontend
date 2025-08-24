@@ -1,13 +1,7 @@
 {
   "functions": {
-    "app/api/**/*.py": {
+    "app/api/marcas.py": {
       "runtime": "python3.9"
     }
-  },
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/app/api/$1"
-    }
-  ]
+  }
 }
