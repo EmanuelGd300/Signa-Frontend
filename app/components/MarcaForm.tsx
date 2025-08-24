@@ -81,7 +81,10 @@ export function MarcaForm({ isOpen, onClose, onSuccess, marca, isEditing = false
   const handleSubmit = async () => {
     try {
       if (isEditing) {
-        await apiService.updateMarca(marca.id, formData);
+        await apiService.updateMarca(marca.id, {
+          ...formData,
+          estado: marca.estado
+        });
       } else {
         await apiService.createMarca(formData);
       }
