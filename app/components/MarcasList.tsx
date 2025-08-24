@@ -106,28 +106,18 @@ export function MarcasList() {
 
     if (nuevoEstado && nuevoEstado !== marca.estado) {
       try {
-        const response = await fetch(`http://localhost:5000/api/marcas/${marca.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...marca,
-            estado: nuevoEstado
-          }),
+        const updatedMarca = await apiService.updateMarca(marca.id!, {
+          ...marca,
+          estado: nuevoEstado
         });
 
-        if (response.ok) {
-          await Swal.fire({
-            title: '¡Actualizado!',
-            text: `Estado cambiado a: ${nuevoEstado}`,
-            icon: 'success',
-            confirmButtonColor: '#3B82F6'
-          });
-          loadMarcas();
-        } else {
-          throw new Error('Error al actualizar el estado');
-        }
+        await Swal.fire({
+          title: '¡Actualizado!',
+          text: `Estado cambiado a: ${nuevoEstado}`,
+          icon: 'success',
+          confirmButtonColor: '#3B82F6'
+        });
+        loadMarcas();
       } catch (error) {
         await Swal.fire({
           title: 'Error',

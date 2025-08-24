@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Modal } from './ui/Modal';
 import { Button } from './ui/Button';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { apiService } from '@/lib/api';
 import Swal from 'sweetalert2';
 
 interface MarcaFormData {
@@ -79,33 +80,20 @@ export function MarcaForm({ isOpen, onClose, onSuccess, marca, isEditing = false
 
   const handleSubmit = async () => {
     try {
-      const url = isEditing 
-        ? `http://localhost:5000/api/marcas/${marca.id}`
-        : 'http://localhost:5000/api/marcas';
-      
-      const method = isEditing ? 'PUT' : 'POST';
-
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        await Swal.fire({
-          title: '¡Éxito!',
-          text: `Marca ${isEditing ? 'actualizada' : 'creada'} correctamente`,
-          icon: 'success',
-          confirmButtonColor: '#3B82F6'
-        });
-        onSuccess();
-        handleClose();
+      if (isEditing) {
+        await apiService.updateMarca(marca.id, formData);
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Error al procesar la marca');
+        await apiService.createMarca(formData);
       }
+
+      await Swal.fire({
+        title: '¡Éxito!',
+        text: `Marca ${isEditing ? 'actualizada' : 'creada'} correctamente`,
+        icon: 'success',
+        confirmButtonColor: '#3B82F6'
+      });
+      onSuccess();
+      handleClose();
     } catch (error) {
       await Swal.fire({
         title: 'Error',

@@ -3,8 +3,7 @@ import { API_BASE_URL } from './utils';
 
 class ApiService {
   private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    const url = `https://signa-backend-production-795b.up.railway.app/api${endpoint}`;
-    console.log('🔥 Making request to:', url, 'Method:', options?.method || 'GET');
+    const url = `${API_BASE_URL}${endpoint}`;
     
     const response = await fetch(url, {
       headers: {
