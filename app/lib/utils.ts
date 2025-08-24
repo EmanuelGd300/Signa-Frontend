@@ -6,3 +6,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const API_BASE_URL = 'https://signa-backend-production-795b.up.railway.app/api';
+
+console.log('🚀 API_BASE_URL configurada:', API_BASE_URL);
