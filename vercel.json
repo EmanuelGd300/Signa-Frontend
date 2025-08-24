@@ -1,7 +1,1 @@
-{
-  "functions": {
-    "app/api/marcas.py": {
-      "runtime": "python3.9"
-    }
-  }
-}
+{}
